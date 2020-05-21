@@ -3,17 +3,30 @@
     <NavBar class="home-nav">
       <div slot="center">淘宝街</div>
     </NavBar>
+    <Swiper>
+      <SwiperItem v-for="(item, index) in banners" :key="index">
+        <a :href="item.link">
+          <img :src="item.image" alt="">
+        </a>
+      </SwiperItem>
+    </Swiper>
   </div>
 </template>
 
 <script>
-import NavBar from 'components/common/navbar/NavBar.vue'
+import NavBar from 'components/common/navbar/NavBar'
 import {getHomeMultidata} from 'network/home'
+import {Swiper,SwiperItem} from 'components/common/swiper'
+// import Swiper from 'components/common/Swiper'
+// import SwiperItem from 'components/common/SwiperItem'
+
 
 export default {
   name: 'home',
   components:{
-    NavBar
+    NavBar,
+    Swiper,
+    SwiperItem
   },
   data() {
     return {

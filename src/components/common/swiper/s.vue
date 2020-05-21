@@ -6,12 +6,7 @@
     <slot name="indicator"></slot>
     <div class="indicator">
       <slot name="indicator" v-if="showIndicator && slideCount>1">
-        <div
-          v-for="(item, index) in slideCount"
-          :key="index.id"
-          class="indi-item"
-          :class="{active:index === currentIndex-1}"
-        ></div>
+        <div v-for="(item, index) in slideCount" :key="index.id" class="indi-item" :class="{active:index === currentIndex-1}"></div>
       </slot>
     </div>
   </div>
@@ -74,9 +69,8 @@ export default {
       this.scrolling = true;
 
       //滚动动画
-      this.swiperStyle.transition = "transform" + this.animDuration + "ms";
-      this.setTransform(currentPosition); 
-      //重置并构建新的位置
+      tihs.swiperStyle.transition = "transform" + this.animDuration + "ms";
+      this.setTransfrom(currentPosition); //重置并构建新的位置
 
       //判断滚动到的位置
       this.checkPosition();
@@ -86,21 +80,30 @@ export default {
     },
 
     /* 检查滚动位置 */
-  checkPosition() {
-    setTimeout(() => {
-      this.swiperStyle.transition = "0ms";
-      if (this.currentIndex >= this.slideCount + 1) {
-        this.currentIndex = 1;
-        this.setTransfrom(-this.currentIndex * this.totalWidth);
-      } else if (this.currentIndex <= 0) {
-        this.currentIndex = this.slideCount;
-        this.setTransfrom(-this.currentIndex * this.totalWidth);
-      }
+    checkPosition() {
+      setTimeout(() => {
+        this.swiperStyle.transition = "0ms";
+        if (this.currentIndex >= this.slideCount + 1) {
+          this.currentIndex = 1;
+          this.setTransfrom(-this.currentIndex * this.totalWidth);
+        } else if (this.currentIndex <= 0) {
+          this.currentIndex = this.slideCount;
+          this.setTransfrom(-this.currentIndex * this.totalWidth);
+        }
 
-      this.$emit("transitionEnd", this.currentIndex - 1);
-    }, this.animDuration);
+        this.$emit("transitionEnd", this.currentIndex - 1);
+      }, this.animDuration);
+    },
+
+    /* 设置滚动位置 */
+    setTransfrom(position) {
+      this.swiperStyle.transfrom = `translate3d(${position}px,0,0)`;
+      this.swiperStyle[
+        "-webkit-transform"
+      ] = `translate3d(${position}px), 0, 0`;
+      this.swiperStyle["-ms-transform"] = `translate3d(${position}px), 0, 0`;
+    }
   },
-
   /**
    * 设置滚动的位置
    */
@@ -210,42 +213,40 @@ export default {
     // 3.添加定时器
     this.startTimer();
   }
-  }
-}
-
+};
 </script>
 
 <style scoped>
-#hy-swiper {
-  overflow: hidden;
-  position: relative;
-}
+ #hy-swiper {
+    overflow: hidden;
+    position: relative;
+  }
 
-.swiper {
-  display: flex;
-}
+  .swiper {
+    display: flex;
+  }
 
-.indicator {
-  display: flex;
-  justify-content: center;
-  position: absolute;
-  width: 100%;
-  bottom: 8px;
-}
+  .indicator {
+    display: flex;
+    justify-content: center;
+    position: absolute;
+    width: 100%;
+    bottom: 8px;
+  }
 
-.indi-item {
-  box-sizing: border-box;
-  width: 8px;
-  height: 8px;
-  border-radius: 4px;
-  background-color: #fff;
-  line-height: 8px;
-  text-align: center;
-  font-size: 12px;
-  margin: 0 5px;
-}
+  .indi-item {
+    box-sizing: border-box;
+    width: 8px;
+    height: 8px;
+    border-radius: 4px;
+    background-color: #fff;
+    line-height: 8px;
+    text-align: center;
+    font-size: 12px;
+    margin: 0 5px;
+  }
 
-.indi-item.active {
-  background-color: rgba(212, 62, 46, 1);
-}
+  .indi-item.active {
+    background-color: rgba(212,62,46,1.0);
+  }
 </style>
