@@ -3,30 +3,53 @@
     <NavBar class="home-nav">
       <div slot="center">淘宝街</div>
     </NavBar>
-    <Swiper>
-      <SwiperItem v-for="(item, index) in banners" :key="index">
-        <a :href="item.link">
-          <img :src="item.image" alt="">
-        </a>
-      </SwiperItem>
-    </Swiper>
+    <HomeSwiper :banners="banners"></HomeSwiper>
+    <Recommends :recommends="recommends"></Recommends>
+    <FeatureView />
+    <TabContor :titles="['流行','精选','新款']"></TabContor>
+    <ul>
+      <li>列表</li>
+      <li>列表</li>
+      <li>列表</li>
+      <li>列表</li>
+      <li>列表</li>
+      <li>列表</li>
+      <li>列表</li>
+      <li>列表</li>
+      <li>列表</li>
+      <li>列表</li>
+      <li>列表</li>
+      <li>列表</li>
+      <li>列表</li>
+      <li>列表</li>
+      <li>列表</li>
+      <li>列表</li>
+      <li>列表</li>
+      <li>列表</li>
+      <li>列表</li>
+      <li>列表</li>
+    </ul>
   </div>
+  
 </template>
 
 <script>
 import NavBar from 'components/common/navbar/NavBar'
-import {getHomeMultidata} from 'network/home'
-import {Swiper,SwiperItem} from 'components/common/swiper'
-// import Swiper from 'components/common/Swiper'
-// import SwiperItem from 'components/common/SwiperItem'
+import HomeSwiper from './childComps/HomeSwiper'
+import Recommends from './childComps/Recommends'
+import FeatureView from './childComps/FeatureView'
 
+import TabContor from 'components/content/TabContor'
+import {getHomeMultidata} from 'network/home'
 
 export default {
   name: 'home',
   components:{
     NavBar,
-    Swiper,
-    SwiperItem
+    HomeSwiper,
+    Recommends,
+    FeatureView,
+    TabContor
   },
   data() {
     return {
@@ -34,7 +57,7 @@ export default {
       recommends:[]
     }
   },
-  created() {
+  created() { 
     getHomeMultidata().then(res => {
       console.log(res);
       this.banners = res.data.banner.list;
@@ -48,5 +71,15 @@ export default {
   .home-nav{
     background-color: pink;
     color: white;
+    /* 固定顶部标题名 */
+    position: fixed;
+    left: 0;
+    right: 0;
+    top: 0;
+    z-index: 9;
+  }
+  .home{
+    /* 固定顶部标题名 */ 
+    padding-top: 44px;
   }
 </style>

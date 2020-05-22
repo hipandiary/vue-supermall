@@ -88,13 +88,13 @@ export default {
     /* 检查滚动位置 */
   checkPosition() {
     setTimeout(() => {
-      this.swiperStyle.transition = "0ms";
+      this.swiperStyle.transition = '0ms';
       if (this.currentIndex >= this.slideCount + 1) {
         this.currentIndex = 1;
-        this.setTransfrom(-this.currentIndex * this.totalWidth);
-      } else if (this.currentIndex <= 0) {
+        this.setTransform(-this.currentIndex * this.totalWidth);
+      }else if (this.currentIndex <=0) {
         this.currentIndex = this.slideCount;
-        this.setTransfrom(-this.currentIndex * this.totalWidth);
+        this.setTransform(-this.currentIndex * this.totalWidth);
       }
 
       this.$emit("transitionEnd", this.currentIndex - 1);
