@@ -6,8 +6,36 @@
     <HomeSwiper :banners="banners"></HomeSwiper>
     <Recommends :recommends="recommends"></Recommends>
     <FeatureView />
-    <TabContor :titles="['流行','精选','新款']"></TabContor>
+    <TabContor class="tab-contor" :titles="['流行','精选','新款']"></TabContor>
     <ul>
+      <li>列表</li>
+      <li>列表</li>
+      <li>列表</li>
+      <li>列表</li>
+      <li>列表</li>
+      <li>列表</li>
+      <li>列表</li>
+      <li>列表</li>
+      <li>列表</li>
+      <li>列表</li>
+      <li>列表</li>
+      <li>列表</li>
+      <li>列表</li>
+      <li>列表</li>
+      <li>列表</li>
+      <li>列表</li>
+      <li>列表</li>
+      <li>列表</li>
+      <li>列表</li>
+      <li>列表</li>
+      <li>列表</li>
+      <li>列表</li>
+      <li>列表</li>
+      <li>列表</li>
+      <li>列表</li>
+      <li>列表</li>
+      <li>列表</li>
+      <li>列表</li>
       <li>列表</li>
       <li>列表</li>
       <li>列表</li>
@@ -40,7 +68,7 @@ import Recommends from './childComps/Recommends'
 import FeatureView from './childComps/FeatureView'
 
 import TabContor from 'components/content/TabContor'
-import {getHomeMultidata} from 'network/home'
+import {getHomeMultidata,getHomeGoods} from 'network/home'
 
 export default {
   name: 'home',
@@ -54,7 +82,12 @@ export default {
   data() {
     return {
       banners:[],
-      recommends:[]
+      recommends:[],
+      goods:{
+        'pop':{page:0,list:[]},
+        'new':{page:0,list:[]},
+        'sell':{page:0,list:[]},
+      }
     }
   },
   created() { 
@@ -62,6 +95,10 @@ export default {
       console.log(res);
       this.banners = res.data.banner.list;
       this.recommends = res.data.recommend.list;
+    }),
+    getHomeGoods('pop',1).then(res =>{
+      console.log(res);
+      
     })
   },
 }
@@ -76,10 +113,15 @@ export default {
     left: 0;
     right: 0;
     top: 0;
-    z-index: 9;
+    z-index: 10;
   }
   .home{
     /* 固定顶部标题名 */ 
     padding-top: 44px;
+  }
+  .tab-contor{
+    position: sticky;
+    top:44px;
+    background-color: white;
   }
 </style>
